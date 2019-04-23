@@ -206,7 +206,6 @@ spec:
 EOF
 {{< /text >}}
 
-
 {{< text java>}}
 certificate.certmanager.k8s.io/ingress-cert configured
 {{< /text >}}
