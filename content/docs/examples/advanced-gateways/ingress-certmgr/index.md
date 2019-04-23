@@ -176,3 +176,56 @@ Hello version: v1, instance: helloworld-5d498979b6-jp2mf
 {{< /text >}}
 
 Note that you have to use the `--insecure` flag as certificates issued by the "staging" ACME-endpoints aren't trusted.
+
+## Moving to production from staging
+
+Now to switch to the production letsencrypt issuer.  First we'll re-apply the certificate.
+
+{{< text bash >}}
+$ cat <<EOF | kubectl apply -f -
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: ingress-cert-staging
+  namespace: istio-system
+spec:
+  secretName: ingress-cert-staging
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  commonName: $INGRESS_DOMAIN
+  dnsNames:
+  - $INGRESS_DOMAIN
+  acme:
+    config:
+    - http01:
+        ingressClass: istio
+      domains:
+      - $INGRESS_DOMAIN
+---
+EOF
+{{< /text >}}
+
+
+```
+certificate.certmanager.k8s.io/ingress-cert-staging configured
+
+```
+
+Now delete the secret to force cert-manager to request a new cert from the production issuer:
+
+```
+kubectl delete secret -n istio-system ingress-cert-staging
+```
+
+And watch that cert for a successfull issuance:
+
+```
+watch -n1 kubectl describe cert ingress-cert-staging -n istio-system
+```
+
+you should see something like:
+
+```
+  Normal  CertIssued     13m   cert-manager  Certificate issued successfully
+```
