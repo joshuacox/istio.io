@@ -179,7 +179,7 @@ Note that you have to use the `--insecure` flag as certificates issued by the "s
 
 ## Moving to production from staging
 
-Now to switch to the production letsencrypt issuer.  First we'll re-apply the certificate.
+Now to switch to the production letsencrypt issuer.  First we'll reapply the certificate.
 
 {{< text bash >}}
 $ cat <<EOF | kubectl apply -f -
@@ -218,7 +218,7 @@ Now delete the secret to force cert-manager to request a new cert from the produ
 kubectl delete secret -n istio-system ingress-cert-staging
 ```
 
-And watch that cert for a successfull issuance:
+And watch that cert for a successful issuance:
 
 ```
 watch -n1 kubectl describe cert ingress-cert-staging -n istio-system
