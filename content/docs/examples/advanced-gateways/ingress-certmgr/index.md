@@ -212,7 +212,7 @@ certificate.certmanager.k8s.io/ingress-cert-staging configured
 
 ```
 
-Now delete the secret to force cert-manager to request a new cert from the production issuer:
+Now delete the secret to force cert-manager to request a new certificate from the production issuer:
 
 ```
 kubectl delete secret -n istio-system ingress-cert-staging
