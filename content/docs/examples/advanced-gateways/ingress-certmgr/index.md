@@ -207,25 +207,24 @@ EOF
 {{< /text >}}
 
 
-```
+{{< text bash >}}
 certificate.certmanager.k8s.io/ingress-cert-staging configured
-
-```
+{{< /text >}}
 
 Now delete the secret to force cert-manager to request a new certificate from the production issuer:
 
-```
+{{< text bash >}}
 kubectl delete secret -n istio-system ingress-cert-staging
-```
+{{< /text >}}
 
 And watch that cert for a successful issuance:
 
-```
+{{< text bash >}}
 watch -n1 kubectl describe cert ingress-cert-staging -n istio-system
-```
+{{< /text >}}
 
 you should see something like:
 
-```
+{{< text bash >}}
   Normal  CertIssued     13m   cert-manager  Certificate issued successfully
-```
+{{< /text >}}
