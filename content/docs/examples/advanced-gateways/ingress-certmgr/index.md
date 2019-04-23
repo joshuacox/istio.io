@@ -206,7 +206,7 @@ spec:
 EOF
 {{< /text >}}
 
-{{< text java>}}
+{{< text plain>}}
 certificate.certmanager.k8s.io/ingress-cert configured
 {{< /text >}}
 
@@ -224,6 +224,6 @@ $ watch -n1 kubectl describe cert ingress-cert -n istio-system
 
 you should see something like:
 
-{{< text java>}}
+{{< text plain>}}
 Normal  CertIssued     13m   cert-manager  Certificate issued successfully
 {{< /text >}}
